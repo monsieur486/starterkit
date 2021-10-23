@@ -22,11 +22,17 @@ public class StarterKitApplication {
 
   @PostConstruct
   public void postConstruct() {
-    String message = "Serveur lancé sur le port: " + portNumber.toString() +
-      " avec le profil: " +
-      profile;
+    StringBuilder message = new StringBuilder("Serveur lancé\nPort d'écoute: ");
+    message.append(portNumber.toString()).append("\n");
+    if(profile.equals("dev")){
+      message.append("Mode développement");
+    } else if (profile.equals("prod")){
+      message.append("Mode production");
+    } else {
+      message.append("Mode inconnu");
+    }
 
-    System.out.println(message);
+    System.out.println( message.toString());
   }
 
 }
