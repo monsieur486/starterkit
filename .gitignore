@@ -33,3 +33,9 @@ build/
 .vscode/
 env.properties
 /node_modules/
+dev.sh
+git.sh
+gulpfile.js
+init.sh
+package.json
+yarn.lock
