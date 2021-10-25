@@ -1,2 +1,2 @@
-mv env.propertires.prod .env
+mv env.properties.prod .env
 ln -s .env env.properties
