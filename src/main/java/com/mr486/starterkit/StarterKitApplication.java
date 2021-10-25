@@ -31,6 +31,12 @@ public class StarterKitApplication {
   @Value("${spring.profiles.active}")
   String  profile;
 
+  @Value("${DB_NAME}")
+  String  dataBaseName;
+
+  @Value("${DB_USER}")
+  String  userName;
+
 
   /**
    * Post construct.
@@ -43,8 +49,7 @@ public class StarterKitApplication {
   }
 
   private StringBuilder getInitMessage() {
-    StringBuilder message = new StringBuilder("Serveur lancé\nPort d'écoute: ");
-    message.append(portNumber.toString()).append("\n");
+    StringBuilder message = new StringBuilder("Serveur lancé\n");
     if (profile.equals("dev")) {
       message.append("Mode développement");
     } else if (profile.equals("prod")) {
@@ -52,6 +57,9 @@ public class StarterKitApplication {
     } else {
       message.append("Mode inconnu");
     }
+    message.append("\nPort d'écoute: ").append(portNumber.toString());
+    message.append("\nBase de donnée: ").append(dataBaseName);
+    message.append("\nUtilisateur: ").append(userName);
     return message;
   }
 
