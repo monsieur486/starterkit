@@ -36,6 +36,6 @@ env.properties
 dev.sh
 git.sh
 gulpfile.js
-init.sh
+firstDev.sh
 package.json
 yarn.lock
