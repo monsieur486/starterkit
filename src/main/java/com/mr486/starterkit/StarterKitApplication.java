@@ -1,6 +1,8 @@
 package com.mr486.starterkit;
 
 import javax.annotation.PostConstruct;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Starter kit application.
  */
 @SpringBootApplication
+@Slf4j
 public class StarterKitApplication {
   /**
    * The entry point of application.
@@ -20,47 +23,75 @@ public class StarterKitApplication {
   }
 
   /**
-   * The Port number.
-   */
-  @Value("${server.port}")
-  Integer portNumber;
-
-  /**
-   * The Profile.
-   */
-  @Value("${spring.profiles.active}")
-  String  profile;
-
-  @Value("${DB_NAME}")
-  String  dataBaseName;
-
-  @Value("${DB_USER}")
-  String  userName;
-
-
-  /**
    * Post construct.
    */
   @PostConstruct
   public void postConstruct() {
-    StringBuilder message = getInitMessage();
-
-    System.out.println(message);
+    showInitMessage();
   }
 
-  private StringBuilder getInitMessage() {
-    StringBuilder message = new StringBuilder("Serveur lancé\n");
+  // ########################## Factorisation ##########################
+
+  /**
+   *Sshow initialisation message.
+   */
+  private void showInitMessage() {
+    log.info("===================================");
+    showServerState();
+    showMode();
+    showPort();
+    showDataBaseName();
+    showUserFromDataBase();
+    log.info("===================================");
+  }
+
+  /**
+   * Show start message.
+   */
+  private void showServerState() {
+    log.info("Serveur lancé");
+  }
+
+  /**
+   * Show Profile.
+   */
+  @Value("${spring.profiles.active}")
+  String  profile;
+  private void showMode() {
     if (profile.equals("dev")) {
-      message.append("Mode développement");
+      log.info("Mode développement");
     } else if (profile.equals("prod")) {
-      message.append("Mode production");
+      log.warn("Mode production");
     } else {
-      message.append("Mode inconnu");
+      log.error("Mode inconnu");
     }
-    message.append("\nPort d'écoute: ").append(portNumber.toString());
-    message.append("\nBase de donnée: ").append(dataBaseName);
-    message.append("\nUtilisateur: ").append(userName);
-    return message;
+  }
+
+  /**
+   * Show Port number.
+   */
+  @Value("${server.port}")
+  Integer portNumber;
+  private void showPort() {
+    log.info("Port d'écoute: " + portNumber.toString());
+  }
+
+  /**
+   * Show DatabaseName.
+   */
+  @Value("${DB_NAME}")
+  String  dataBaseName;
+  private void showDataBaseName() {
+    log.info("Base de donnée: " + dataBaseName);
+  }
+
+  /**
+   *Show DatabaseNameUser.
+   */
+  @Value("${DB_USER}")
+  String  userName;
+  private void showUserFromDataBase() {
+    log.info("Utilisateur base de données: " + userName);
   }
 
 }
