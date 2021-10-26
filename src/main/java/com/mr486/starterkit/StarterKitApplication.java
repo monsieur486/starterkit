@@ -33,7 +33,7 @@ public class StarterKitApplication {
   // ########################## Factorisation ##########################
 
   /**
-   *Sshow initialisation message.
+   *Show initialisation message.
    */
   private void showInitMessage() {
     log.info("===================================");
@@ -86,7 +86,7 @@ public class StarterKitApplication {
   }
 
   /**
-   *Show DatabaseNameUser.
+   * Show DatabaseNameUser.
    */
   @Value("${DB_USER}")
   String  userName;
